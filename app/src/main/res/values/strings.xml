@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Face_Recognition</string>
+    <string name="app_name">Face Recognition</string>
+    <string name="frame">Frame</string>
+    <string name="fps">FPS</string>
+    <string name="thread">Thread</string>
+    <string name="nnapi">NNAPI</string>
+    <string name="base_thread_num">1</string>
+    <string name="base_string">empty</string>
+    <string name="add_image">Add Image </string>
+    <string name="bounding_box">Bounding Box</string>
+    <string name="name">Name</string>
+    <string name="remove">remove</string>
+    <string name="plus">plus</string>
+
 </resources>
