@@ -20,7 +20,7 @@ class RecognizerActivity(modelPath: String) {
 
     private val mean = floatArrayOf(0.5f, 0.5f, 0.5f)
     private val std = floatArrayOf(0.5f, 0.5f, 0.5f)
-    private val threshold = 0.8f
+    private val threshold = 1.43f
 
     fun addFace(bitmap: Bitmap, name: String) {
         // Preprocess image
@@ -63,17 +63,21 @@ class RecognizerActivity(modelPath: String) {
 
             // Get L2 distance with images from photo album
             var name = ""
+            var min = 1000f
             for ((key, value) in photoAlbum) {
                 val dist = l2Distance(embedding, value)
                 Log.d(TAG, "$dist")
                 // If it is smaller than threshold, add its name to recognition array
                 if (dist <= threshold) {
-                    Log.d(TAG, "Recognized Face $key! Dist: $dist")
-                    name = key
-                    break
+                    if (dist <= min) {
+                        min = dist
+                        name = key
+                    }
                 }
             }
-
+            if (name != "") {
+                Log.d(TAG, "Recognized Face $name! Dist: $min")
+            }
             recognition.add(name)
         }
 
@@ -106,7 +110,7 @@ class RecognizerActivity(modelPath: String) {
             sum += square
         }
 
-        return sqrt(sum)
+        return sum
     }
 
     fun setNumThreads(numThreads: Int) {

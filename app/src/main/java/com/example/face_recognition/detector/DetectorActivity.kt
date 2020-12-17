@@ -33,7 +33,7 @@ class DetectorActivity(private val assetManager: AssetManager) {
 
         // Detect
         val startTime = System.currentTimeMillis()
-        val faceInfo = faceSDKNative.faceDetect(imageData, width, height, 4)
+        val faceInfo = faceSDKNative.faceDetect(imageData, width, height, 4) ?: intArrayOf(0)
         val detectionTime = System.currentTimeMillis() - startTime
         Log.d(TAG, "Face Detection Time: $detectionTime ms")
 

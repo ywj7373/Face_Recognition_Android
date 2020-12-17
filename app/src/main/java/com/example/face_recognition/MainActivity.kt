@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         DetectorActivity(assets)
     }
     private val recognizer by lazy {
-        RecognizerActivity(assetFilePath(this, "mobilenet-v2.pt"))
+        RecognizerActivity(assetFilePath(this, model_name))
     }
 
     private val SELECT_IMAGE = 1
@@ -209,9 +209,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             // Detection
             val faceInfo = detector.detectFaces(currentBitmap)
 
-            // Recognition
-            val recognition = recognizer.recognizeFaces(currentBitmap, faceInfo)
-
             // Draw Bounding Boxes every 2 frames
             val overlay = if (skip) {
                 skip = false
@@ -219,6 +216,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             else {
                 skip = true
+
+                // Recognition
+                val recognition = recognizer.recognizeFaces(currentBitmap, faceInfo)
+
                 previousBitmap = currentBitmap.copy(Bitmap.Config.ARGB_8888, true)
                 previousBitmap = previousBitmap.drawBoundingBox(faceInfo, recognition)
                 previousBitmap
@@ -365,5 +366,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
+
+        private const val model_name = "MFN_prune.pt"
     }
 }

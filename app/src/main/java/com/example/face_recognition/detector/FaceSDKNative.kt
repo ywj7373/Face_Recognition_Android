@@ -7,7 +7,7 @@ class FaceSDKNative {
         imageWidth: Int,
         imageHeight: Int,
         imageChannel: Int
-    ): IntArray
+    ): IntArray?
 
     external fun faceDetectionModelUnInit(): Boolean
 
